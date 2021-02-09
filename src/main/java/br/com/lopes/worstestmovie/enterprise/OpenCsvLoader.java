@@ -2,6 +2,7 @@ package br.com.lopes.worstestmovie.enterprise;
 
 import br.com.lopes.worstestmovie.model.movie.Movie;
 import br.com.lopes.worstestmovie.model.movie.MovieRepository;
+import br.com.lopes.worstestmovie.model.producer.ProducerService;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -22,19 +23,21 @@ public class OpenCsvLoader {
 
     private static final Logger LOG = LoggerFactory.getLogger(OpenCsvLoader.class);
 
-//    public static final String CSV = "src/main/resources/movielist.csv";
-    public static final String[] HEADERS = new String[]{"year", "title", "studios", "producers", "winner"};
+    protected static final String[] HEADERS = new String[]{"year", "title", "studios", "producers", "winner"};
 
     @Autowired
-    private MovieRepository repository;
+    private MovieRepository movieRepository;
+
+    @Autowired
+    private ProducerService producerproducerService;
 
     @Value("${datasource.csv.file}")
     private String csvFile;
 
     public void loadDataIntoH2(){
         List<CsvMovieWrapper> csvMovies = getCsvMovies();
-        List<Movie> collect = csvMovies.stream().map(CsvMovieWrapper::toEntity).collect(Collectors.toList());
-        Iterable<Movie> movies = repository.saveAll(collect);
+        List<Movie> collect = csvMovies.stream().map(csvMovieWrapper -> csvMovieWrapper.toEntity(producerproducerService)).collect(Collectors.toList());
+        Iterable<Movie> movies = movieRepository.saveAll(collect);
         movies.forEach(movie -> LOG.info(movie.toString()));
     }
 
@@ -52,7 +55,7 @@ public class OpenCsvLoader {
     private List<CsvMovieWrapper> parseCsvFile(/*InputStream is*/FileReader fileReader) {
         List<CsvMovieWrapper> movies = new ArrayList<>();
         try {
-            movies = parseEntities(fileReader);;
+            movies = parseEntities(fileReader);
         } catch (Exception e) {
             LOG.error("CSV casting error",  e);
         } finally {
@@ -75,8 +78,7 @@ public class OpenCsvLoader {
                 .withSkipLines(1)
                 .withIgnoreLeadingWhiteSpace(true)
                 .withSeparator(';').build();
-        List<CsvMovieWrapper> parse = csvToBean.parse();
-        return parse;
+        return csvToBean.parse();
     }
 
 }

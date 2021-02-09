@@ -15,13 +15,10 @@ public class WorstestMovieApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WorstestMovieApplication.class, args);
-
-//        OpenCsvUtil.getInstance().loadDataIntoH2();
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
-        System.out.println("hello world, I have just started up");
         service.loadDataIntoH2();
     }
 

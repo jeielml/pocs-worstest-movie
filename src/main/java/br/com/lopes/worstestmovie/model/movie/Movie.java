@@ -1,5 +1,6 @@
 package br.com.lopes.worstestmovie.model.movie;
 
+import br.com.lopes.worstestmovie.model.producer.Producer;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +23,9 @@ public class Movie {
     private String title;
     @NonNull
     private String studios;
+
+    @ManyToOne
     @NonNull
-    private String producers;
+    private Producer producer;
     private boolean winner;
 }

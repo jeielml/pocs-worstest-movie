@@ -1,4 +1,4 @@
-package br.com.lopes.worstestmovie.controllers;
+package br.com.lopes.worstestmovie.api.controllers;
 
 import br.com.lopes.worstestmovie.enterprise.RecordNotFoundException;
 import br.com.lopes.worstestmovie.model.movie.Movie;
@@ -25,12 +25,6 @@ public class MovieController {
         return (List<Movie>) this.repository.findAll();
     }
 
-    /**
-     * FIXME: return friendly not found message
-     *
-     * @param id
-     * @return
-     */
     @GetMapping("{id}")
     @NotFound(action = NotFoundAction.IGNORE)
     public Movie find(@PathVariable("id") Long id) {

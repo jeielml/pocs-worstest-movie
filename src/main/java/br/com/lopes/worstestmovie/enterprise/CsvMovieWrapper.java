@@ -1,16 +1,18 @@
 package br.com.lopes.worstestmovie.enterprise;
 
-import antlr.StringUtils;
 import br.com.lopes.worstestmovie.model.movie.Movie;
-import lombok.*;
-import org.apache.logging.log4j.util.Strings;
-
-import javax.persistence.*;
+import br.com.lopes.worstestmovie.model.producer.Producer;
+import br.com.lopes.worstestmovie.model.producer.ProducerService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class CsvMovieWrapper {
+
     @NonNull
     private Integer year;
     @NonNull
@@ -21,13 +23,27 @@ public class CsvMovieWrapper {
     private String producers;
     private String winner;
 
-    public Movie toEntity() {
+    public Movie toEntity(ProducerService producerService) {
+        Producer producer = getProducer(producerService);
+
         return Movie.builder()
                 .year(this.year)
                 .title(this.title)
                 .studios(this.studios)
-                .producers(this.producers)
-                .winner("yes".equals(this.winner))
+                .producer(producer)
+                .winner(won())
                 .build();
+    }
+
+    private Producer getProducer(ProducerService producerService) {
+        Producer producer = producerService.findByName(this.producers);
+        if (won()) {
+            producer = producerService.updateWins(producer, this.year);
+        }
+        return producer;
+    }
+
+    private boolean won() {
+        return "yes".equals(this.winner);
     }
 }
