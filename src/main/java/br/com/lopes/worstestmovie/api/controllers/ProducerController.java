@@ -44,7 +44,16 @@ public class ProducerController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("winners/top-tail")
+    @GetMapping("winners/intervals")
+    public Set<WinnerInterval> findWinnersIntervals() {
+        return ((List<Producer>) this.repository.findAll())
+                .stream()
+                .filter(producer -> !producer.getWins().isEmpty() && producer.getWins().size() > 1)
+                .flatMap(producer -> producer.generateWinnerIntervals().stream())
+                .collect(Collectors.toSet());
+    }
+
+    @GetMapping("winners/intervals/top-tail-awards")
     public TopTailWinnersInterval findTopTailWinners() {
         Set<WinnerInterval> winners = ((List<Producer>) this.repository.findAll())
                 .stream()

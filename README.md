@@ -26,6 +26,39 @@ To change the initial Data Source replace the `src/main/resources/movielist.csv`
  mvn spring-boot:run
 ```
 
+### Access H2 in memory database
+
+-  http://localhost:8080/h2-console
+
+```
+jdbc url = jdbc:h2:mem:testdb
+user name = sa
+password = password
+```
+
+### Restful API
+
+#### All movies
+ - http://localhost:8080/api/movies
+
+#### A single Movie
+- http://localhost:8080/api/movies/3
+
+#### A non existin  Movie
+- http://localhost:8080/api/movies/300000
+```
+{"message":"Record Not Found","details":["This movie does not exists!"]}
+```
+
+#### All producers
+- http://localhost:8080/api/producers
+
+#### All winners' producers
+- http://localhost:8080/api/producers/winners
+
+#### All winners' producers in the top and tail awards
+- http://localhost:8080/api/producers/winners/intervals/top-tail-awards
+
 ### Running the integration tests
 
 ```
