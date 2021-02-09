@@ -5,6 +5,7 @@ import br.com.lopes.worstestmovie.model.producer.Win;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -24,23 +25,34 @@ public class WinnerInterval implements Comparable<WinnerInterval> {
         if(producer.getWins().size() < 2) {
             throw new IllegalArgumentException("Producer must be an winner more then once!");
         }
-        ArrayList<Win> wins = new ArrayList<>(producer.getWins());
         List<WinnerInterval> winnerIntervalList = new ArrayList<>();
+        Iterator<Win> iterator = producer.getWins()
+                .stream()
+                .sorted(Win::compareTo)
+                .iterator();
 
-        for (int i = 1; i < wins.size(); i++) {
-            Win previousWin = wins.get(i-1);
-            Win followingWin = wins.get(i);
-            WinnerInterval winnerInterval = WinnerInterval
-                    .builder()
-                    .producer(producer.getName())
-                    .interval(followingWin.getYear() - previousWin.getYear())
-                    .previousWin(previousWin.getYear())
-                    .followingWin(followingWin.getYear())
-                    .build();
-            winnerIntervalList.add(winnerInterval);
+        Win previousWin = null;
+        while (iterator.hasNext()) {
+            Win current = iterator.next();
+            if(previousWin != null && !previousWin.equals(current)){
+                WinnerInterval winnerInterval = getWinnerInterval(producer, previousWin,current);
+                winnerIntervalList.add(winnerInterval);
+            }
+            previousWin = current;
         }
 
         return winnerIntervalList.stream();
+    }
+
+    private static WinnerInterval getWinnerInterval(Producer producer, Win previousWin,Win followingWin) {
+        WinnerInterval winnerInterval = WinnerInterval
+                .builder()
+                .producer(producer.getName())
+                .interval(followingWin.getYear() - previousWin.getYear())
+                .previousWin(previousWin.getYear())
+                .followingWin(followingWin.getYear())
+                .build();
+        return winnerInterval;
     }
 
 
