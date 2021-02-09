@@ -29,20 +29,21 @@ public class OpenCsvLoader {
     private MovieRepository movieRepository;
 
     @Autowired
-    private ProducerService producerproducerService;
+    private ProducerService producerService;
 
     @Value("${datasource.csv.file}")
     private String csvFile;
 
     public void loadDataIntoH2(){
-        List<CsvMovieWrapper> csvMovies = getCsvMovies();
-        List<Movie> collect = csvMovies.stream().map(csvMovieWrapper -> csvMovieWrapper.toEntity(producerproducerService)).collect(Collectors.toList());
-        Iterable<Movie> movies = movieRepository.saveAll(collect);
-        movies.forEach(movie -> LOG.info(movie.toString()));
+        List<Movie> collect = getCsvMovies()
+                .stream()
+                .map(csvMovieWrapper -> csvMovieWrapper.toEntity(producerService))
+                .collect(Collectors.toList());
+        movieRepository.saveAll(collect);
     }
 
     private List<CsvMovieWrapper> getCsvMovies() {
-        try(FileReader fileReader = new FileReader(csvFile);){
+        try(FileReader fileReader = new FileReader(csvFile)){
             return parseCsvFile(fileReader);
         } catch (FileNotFoundException e) {
             LOG.error("CSV file not found",  e);

@@ -57,7 +57,7 @@ public class ProducerController {
     public TopTailWinnersInterval findTopTailWinners() {
         Set<WinnerInterval> winners = ((List<Producer>) this.repository.findAll())
                 .stream()
-                .filter(producer -> !producer.getWins().isEmpty() && producer.getWins().size() > 1)
+                .filter(producer -> producer.getWins().size() > 1)
                 .flatMap(producer -> producer.generateWinnerIntervals().stream())
                 .collect(Collectors.toSet());
 
