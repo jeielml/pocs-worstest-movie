@@ -22,7 +22,7 @@ public class Win implements Comparable<Win> {
     private Integer year;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY , optional = false)
+    @ManyToOne(fetch = FetchType.EAGER , optional = false)
     @JoinColumn(name = "producer_id", nullable = false)
     private Producer producer;
 
