@@ -1,8 +1,10 @@
 package br.com.lopes.worstestmovie.api.controllers;
 
 import br.com.lopes.worstestmovie.WorstestMovieApplicationTests;
-import org.junit.Before;
-import org.junit.Test;
+
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,7 +19,7 @@ public class ProducerControllerIntegrationTest extends WorstestMovieApplicationT
     @Autowired
     private ProducerController controller;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }

@@ -62,7 +62,7 @@ password = password
 ### Running the integration tests
 
 ```
-./mvnw test
+ mvn verify -Pfailsafe
 ```
 
 ## Builded with
