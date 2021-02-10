@@ -38,26 +38,28 @@ password = password
 
 ### Restful API Herokuapp
 
+Thi api is on staging enviroment, after 30 minutes of inactivitie it stand by
+
 #### All movies
-- http://jeiel.herokuapp.com/api/movies
+- http://worstest-movie.herokuapp.com/api/movies
 
 #### A single Movie
-- http://jeiel.herokuapp.com/api/movies/3
+- http://worstest-movie.herokuapp.com/api/movies/3
 
 #### A non existin  Movie
-- http://jeiel.herokuapp.com/api/movies/300000
+- http://worstest-movie.herokuapp.com/api/movies/300000
 ```
 {"message":"Record Not Found","details":["This movie does not exists!"]}
 ```
 
 #### All producers
-- http://jeiel.herokuapp.com/api/producers
+- http://worstest-movie.herokuapp.com/api/producers
 
 #### All winners' producers
-- http://jeiel.herokuapp.com/api/producers/winners
+- http://worstest-movie.herokuapp.com/api/producers/winners
 
 #### All winners' producers in the top and tail awards
-- http://jeiel.herokuapp.com/api/producers/winners/intervals/top-tail-awards
+- http://worstest-movie.herokuapp.com/api/producers/winners/intervals/top-tail-awards
 
 ### Restful API Local
 
