@@ -36,10 +36,33 @@ user name = sa
 password = password
 ```
 
-### Restful API
+### Restful API Herokuapp
 
 #### All movies
- - http://localhost:8080/api/movies
+- http://jeiel.herokuapp.com/api/movies
+
+#### A single Movie
+- http://jeiel.herokuapp.com/api/movies/3
+
+#### A non existin  Movie
+- http://jeiel.herokuapp.com/api/movies/300000
+```
+{"message":"Record Not Found","details":["This movie does not exists!"]}
+```
+
+#### All producers
+- http://jeiel.herokuapp.com/api/producers
+
+#### All winners' producers
+- http://jeiel.herokuapp.com/api/producers/winners
+
+#### All winners' producers in the top and tail awards
+- http://jeiel.herokuapp.com/api/producers/winners/intervals/top-tail-awards
+
+### Restful API Local
+
+#### All movies
+- http://localhost:8080/api/movies
 
 #### A single Movie
 - http://localhost:8080/api/movies/3
@@ -58,6 +81,7 @@ password = password
 
 #### All winners' producers in the top and tail awards
 - http://localhost:8080/api/producers/winners/intervals/top-tail-awards
+
 
 ### Running the integration tests
 

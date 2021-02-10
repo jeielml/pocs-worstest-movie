@@ -11,7 +11,7 @@
     <groupId>br.com.lopes</groupId>
     <artifactId>worstest-movie</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>worstest-movie</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -93,6 +93,7 @@
     </profiles>
 
     <build>
+        <finalName>worstest-movie</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
