@@ -26,7 +26,7 @@ public class ProducerControllerIntegrationTest extends WorstestMovieApplicationT
 
     @Test
     public void getProducer1WithStatusCode200() throws Exception {
-        String jsonContent = "{\"id\":1,\"name\":\"Producer 1\",\"wins\":[{\"id\":5,\"year\":1900},{\"id\":6,\"year\":1999},{\"id\":1,\"year\":2008},{\"id\":2,\"year\":2009}]}";
+        String jsonContent = "{\"id\":1,\"name\":\"Allan Carr\",\"wins\":[{\"id\":1,\"year\":1980}]}";
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -35,14 +35,14 @@ public class ProducerControllerIntegrationTest extends WorstestMovieApplicationT
 
     @Test
     public void shouldReturnNotFoundWhenProducerNotExists() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/10")
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/210")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
     public void getTopAndTailProducersOnAwardsWithStatusCode200() throws Exception {
-        final String jsonContent = "{\"min\":[{\"producer\":\"Producer 1\",\"interval\":1,\"previousWin\":2008,\"followingWin\":2009},{\"producer\":\"Producer 2\",\"interval\":1,\"previousWin\":2018,\"followingWin\":2019}],\"max\":[{\"producer\":\"Producer 1\",\"interval\":99,\"previousWin\":1900,\"followingWin\":1999}]}j";
+        final String jsonContent = "{\"min\":[{\"producer\":\"Bo Derek\",\"interval\":6,\"previousWin\":1984,\"followingWin\":1990}],\"max\":[{\"producer\":\"Bo Derek\",\"interval\":6,\"previousWin\":1984,\"followingWin\":1990}]}";
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/winners/intervals/top-tail-awards")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
