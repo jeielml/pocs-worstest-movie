@@ -4,6 +4,7 @@ import br.com.lopes.worstestmovie.model.producer.Producer;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
@@ -24,8 +25,8 @@ public class Movie {
     @NonNull
     private String studios;
 
-    @ManyToOne
+    @ManyToMany
     @NonNull
-    private Producer producer;
+    private List<Producer> producers;
     private boolean winner;
 }

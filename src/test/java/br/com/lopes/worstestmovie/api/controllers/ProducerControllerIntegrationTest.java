@@ -35,14 +35,14 @@ public class ProducerControllerIntegrationTest extends WorstestMovieApplicationT
 
     @Test
     public void shouldReturnNotFoundWhenProducerNotExists() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/210")
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/500")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
     public void getTopAndTailProducersOnAwardsWithStatusCode200() throws Exception {
-        final String jsonContent = "{\"min\":[{\"producer\":\"Bo Derek\",\"interval\":6,\"previousWin\":1984,\"followingWin\":1990}],\"max\":[{\"producer\":\"Bo Derek\",\"interval\":6,\"previousWin\":1984,\"followingWin\":1990}]}";
+        final String jsonContent = "{\"min\":[{\"producer\":\"Joel Silver\",\"interval\":1,\"previousWin\":1990,\"followingWin\":1991}],\"max\":[{\"producer\":\"Matthew Vaughn\",\"interval\":13,\"previousWin\":2002,\"followingWin\":2015}]}";
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producers/winners/intervals/top-tail-awards")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())

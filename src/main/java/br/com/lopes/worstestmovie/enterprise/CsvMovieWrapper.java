@@ -29,13 +29,13 @@ public class CsvMovieWrapper {
     private String winner;
 
     public Movie toEntity(ProducerService producerService) {
-        List<Producer> producer = getProducers(producerService);
+        List<Producer> producers = getProducers(producerService);
 
         return Movie.builder()
                 .year(this.year)
                 .title(this.title)
                 .studios(this.studios)
-                .producer(producer.get(0)) //TODO: transformar em lista
+                .producers(producers)
                 .winner(won())
                 .build();
     }
